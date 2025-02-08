@@ -45,6 +45,7 @@ spec:
             name: blue-service
             port:
               number: 8080
+        weight: 75
       - path: /green
         pathType: Prefix
         backend:
@@ -52,4 +53,5 @@ spec:
             name: green-service
             port:
               number: 8081
+        weight: 25
 
