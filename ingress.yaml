@@ -1,0 +1,55 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: app-ingress
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#     nginx.ingress.kubernetes.io/load-balance: "ewma"  # Exponentially weighted moving average for load balancing
+# spec:
+#   rules:
+#   - host: my-app.local
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: blue-service
+#             port:
+#               number: 8080
+#         weight: 75
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: green-service
+#             port:
+#               number: 8081
+#         weight: 25
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /blue
+        pathType: Prefix
+        backend:
+          service:
+            name: blue-service
+            port:
+              number: 8080
+      - path: /green
+        pathType: Prefix
+        backend:
+          service:
+            name: green-service
+            port:
+              number: 8081
+
